@@ -1,6 +1,6 @@
 package web.service;
 
-import web.model.Role;
+import web.entity.Role;
 
 import java.util.List;
 import java.util.Set;

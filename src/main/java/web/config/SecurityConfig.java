@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -24,25 +25,25 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+//@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private DataSource dataSource;
 
     @Qualifier("userDetailsService")
     private final UserDetailsService userDetailsService;
     private final LoginSuccessHandler loginSuccessHandler;
 
+
     public SecurityConfig(@Qualifier("userDetailsServiceImpl")
                                   UserDetailsService userDetailsService,
-                          LoginSuccessHandler loginSuccessHandler) {
+                                  LoginSuccessHandler loginSuccessHandler) {
         this.userDetailsService = userDetailsService;
         this.loginSuccessHandler = loginSuccessHandler;
     }
 
     @Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        //auth.authenticationProvider(daoAuthenticationProvider());
     }
 
     @Override
@@ -78,12 +79,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // Token stored in Table (Persistent_Logins)
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-        db.setDataSource(this.dataSource);
-        return db;
-    }
+//    @Bean
+//    public PersistentTokenRepository persistentTokenRepository() {
+//        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+//        db.setDataSource(this.dataSource);
+//        return db;
+//    }
     // Token stored in Memory (Of Web Server).
 //    @Bean
 //    public PersistentTokenRepository persistentTokenRepository() {

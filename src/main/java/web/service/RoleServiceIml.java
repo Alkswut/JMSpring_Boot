@@ -2,8 +2,8 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import web.dao.RoleDao;
-import web.model.Role;
+import web.repository.RoleRepository;
+import web.entity.Role;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
@@ -12,23 +12,23 @@ import java.util.Set;
 
 @Service
 public class RoleServiceIml implements RoleService {
-    RoleDao roleDao;
+    RoleRepository roleDao;
 
     @Autowired
-    public RoleServiceIml(RoleDao roleDao) {
+    public RoleServiceIml(RoleRepository roleDao) {
         this.roleDao = roleDao;
     }
 
     @Transactional
     @Override
     public Role getRoleById(Long id) {
-        return roleDao.getRoleById(id);
+        return roleDao.getById(id);
     }
 
     @Transactional
     @Override
     public List<Role> getRolesList() {
-        return roleDao.getRolesList();
+        return roleDao.findAll();
     }
 
     @Transactional

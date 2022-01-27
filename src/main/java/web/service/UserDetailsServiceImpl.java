@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import web.dao.UserDao;
-import web.model.User;
+import web.repository.UserRepository;
+import web.entity.User;
 
 
 import javax.transaction.Transactional;
@@ -14,48 +14,48 @@ import java.util.List;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserDetailsServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Transactional
     @Override
     public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+        return userRepository.findByUsername(username);
     }
 
     @Transactional
     @Override
     public List<User> listUsers() {
-        return userDao.listUsers();
+        return userRepository.findAll();
     }
 
     @Transactional
     @Override
     public void registerUser(User user) {
         User userForAdd = new User(user);
-        userDao.addUser(userForAdd);
+        userRepository.save(userForAdd);
     }
 
     @Transactional
     @Override
     public void deleteUser(User user) {
-        userDao.deleteUser(user);
+        userRepository.delete(user);
     }
 
     @Transactional
     @Override
     public void editUser(User user) {
-        userDao.editUser(user);
+        userRepository.delete(user);
     }
 
     @Transactional
     @Override
     public User getUserById(long id) {
-        return userDao.getUserById(id);
+        return userRepository.getById(id);
     }
 
     @Transactional
