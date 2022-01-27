@@ -4,5 +4,10 @@
       "name": "security.basic.enabled",
       "type": "java.lang.String",
       "description": "Description for security.basic.enabled."
-  }
-] }
+    },
+    {
+      "name": "spring.datasource.validationQuery",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.validationQuery."
+    }
+  ] }
