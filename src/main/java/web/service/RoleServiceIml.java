@@ -12,23 +12,23 @@ import java.util.Set;
 
 @Service
 public class RoleServiceIml implements RoleService {
-    RoleRepository roleDao;
+    private final RoleRepository roleRepository;
 
     @Autowired
     public RoleServiceIml(RoleRepository roleDao) {
-        this.roleDao = roleDao;
+        this.roleRepository = roleDao;
     }
 
     @Transactional
     @Override
     public Role getRoleById(Long id) {
-        return roleDao.getById(id);
+        return roleRepository.getById(id);
     }
 
     @Transactional
     @Override
     public List<Role> getRolesList() {
-        return roleDao.findAll();
+        return roleRepository.findAll();
     }
 
     @Transactional

@@ -27,7 +27,6 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 //@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Qualifier("userDetailsService")
     private final UserDetailsService userDetailsService;
     private final LoginSuccessHandler loginSuccessHandler;
