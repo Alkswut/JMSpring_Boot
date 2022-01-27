@@ -1,8 +1,7 @@
-package web.controller;//package web.controller;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
+package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +18,12 @@ import java.util.Set;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private UserService userService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
-    }
-
-    @Autowired
-    public void setRoleService(RoleService roleService) {
         this.roleService = roleService;
     }
 

@@ -7,24 +7,14 @@ import web.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
-
-//    private final Map<String, User> userMap =
-//            Collections.singletonMap("admin", new User(1L, "admin", "admin",
-//                    Collections.singleton(new Role(1L, "ROLE_ADMIN"))));
-//    @Override
-//    public User findByUsername(String name) {
-//        if (!userMap.containsKey(name)) {
-//            return null;
-//        }
-//        //userDetailsService.loadUserByUsername(name);
-//        return userMap.get(name);
-//    }
 
     @Override
     public User findByUsername(String name) {
@@ -63,4 +53,3 @@ public class UserDaoImpl implements UserDao {
         session.update(user);
     }
 }
-

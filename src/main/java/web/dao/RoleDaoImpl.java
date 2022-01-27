@@ -6,9 +6,11 @@ import web.model.Role;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class RoleDaoImpl implements RoleDao {
     @PersistenceContext
     EntityManager entityManager;
